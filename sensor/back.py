@@ -1,6 +1,5 @@
 import math
 import time
- 
 import cv2
 import mediapipe as mp
 from mediapipe.tasks import python
@@ -81,6 +80,7 @@ plank_start = None      # when the current plank hold began
 plank_lost = 0          # consecutive frames the plank form was broken
 best_hold = 0.0
  
+
 while True:
     ret, frame = cap.read()
     if not ret:
