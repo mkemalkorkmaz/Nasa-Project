@@ -1,5 +1,6 @@
 """(http://127.0.0.1:5000)
 POST /api/veri = same as /sport or /consumed, chosen by the JSON you send (used by sports.java)
+GET  /api/veri = same as /sport (today's totals)
 GET  /meals =3yemek
 POST /consumed ={"slot": 0, "status": "true"}  (slot 0/1/2, status true/false/semi)
 GET  /sport =today's squats and plank times (filled by sensor/back.py)
@@ -9,17 +10,18 @@ import json
 import os
 from datetime import date
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
- 
-import meals
- 
+from urllib.parse import urlparse
+
+import meals  # your meals.py (must provide select_meal() and consumed())
+
 HOST, PORT = "127.0.0.1", 5000
 SPORT_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "sport_history.txt")
- 
+
 # Pick today's meals once, when the server starts
 todays = meals.select_meal()
 eaten = set()  # slots already recorded, so a double click can't write twice
- 
- 
+
+
 def load_sport_today():
     """Rebuild today's totals from sport_history.txt (tab separated: date, type, value)."""
     totals = {"squats": 0, "plank_total_seconds": 0.0, "plank_best_seconds": 0.0}
@@ -41,11 +43,11 @@ def load_sport_today():
     except FileNotFoundError:
         pass
     return totals
- 
- 
+
+
 sport = load_sport_today()
- 
- 
+
+
 def add_sport(kind, value):
     if kind == "squat":
         value = int(value)
@@ -62,8 +64,8 @@ def add_sport(kind, value):
         raise ValueError("type must be squat or plank")
     with open(SPORT_FILE, "a", encoding="utf-8") as f:
         f.write(f"{date.today()}\t{kind}\t{value}\n")
- 
- 
+
+
 def meals_payload():
     out = []
     for slot, m in enumerate(todays):
@@ -77,8 +79,8 @@ def meals_payload():
             "consumed": slot in eaten,
         })
     return {"meals": out}
- 
- 
+
+
 class Handler(BaseHTTPRequestHandler):
     def _send(self, code, data):
         body = json.dumps(data).encode("utf-8")
@@ -87,29 +89,38 @@ class Handler(BaseHTTPRequestHandler):
         self.send_header("Content-Length", str(len(body)))
         self.end_headers()
         self.wfile.write(body)
- 
+
+    def _clean_path(self):
+        # drop query string and trailing slash: "/meals/?a=1" -> "/meals"
+        p = urlparse(self.path).path
+        return p.rstrip("/") or "/"
+
     def do_GET(self):
-        if self.path == "/meals":
+        path = self._clean_path()
+        if path == "/meals":
             self._send(200, meals_payload())
-        elif self.path == "/sport":
+        elif path in ("/sport", "/api/veri"):
             self._send(200, sport)
         else:
-            self._send(404, {"error": "not found"})
- 
+            print("[server] 404 GET, path was:", repr(self.path))
+            self._send(404, {"error": "not found", "path": self.path})
+
     def do_POST(self):
-        if self.path not in ("/consumed", "/sport", "/api/veri"):
-            self._send(404, {"error": "not found"})
+        path = self._clean_path()
+        if path not in ("/consumed", "/sport", "/api/veri"):
+            print("[server] 404 POST, path was:", repr(self.path))
+            self._send(404, {"error": "not found", "path": self.path})
             return
         try:
             length = int(self.headers.get("Content-Length", 0))
             data = json.loads(self.rfile.read(length) or b"{}")
             # /api/veri is the address the Java client (sports.java) already uses.
             # It accepts both shapes: {"type":..,"value":..} (sport) or {"slot":..,"status":..} (meal)
-            if self.path == "/sport" or (self.path == "/api/veri" and "type" in data):
+            if path == "/sport" or (path == "/api/veri" and "type" in data):
                 add_sport(str(data["type"]), data["value"])
                 self._send(200, sport)
                 return
-            if self.path == "/api/veri" and "slot" not in data:
+            if path == "/api/veri" and "slot" not in data:
                 raise ValueError('send {"type": "squat", "value": 1} or {"slot": 0, "status": "true"}')
             slot = int(data["slot"])
             status = str(data.get("status", "true"))
@@ -121,11 +132,11 @@ class Handler(BaseHTTPRequestHandler):
             self._send(200, {"ok": True})
         except (KeyError, ValueError, TypeError, json.JSONDecodeError) as e:
             self._send(400, {"error": str(e)})
- 
+
     def log_message(self, fmt, *args):
         print("[server]", fmt % args)
- 
- 
+
+
 if __name__ == "__main__":
     print(f"Serving on http://{HOST}:{PORT}")
     ThreadingHTTPServer((HOST, PORT), Handler).serve_forever()
