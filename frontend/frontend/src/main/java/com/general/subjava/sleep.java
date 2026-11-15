@@ -1,6 +1,5 @@
 package com.general.subjava;
 import java.io.IOException;
-
 import javafx.*;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
