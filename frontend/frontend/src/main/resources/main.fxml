@@ -17,7 +17,7 @@
       <Group layoutX="106.0" layoutY="35.0">
          <children>
             <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#e0e0e096" height="129.0" layoutX="-4.0" layoutY="-1.0" stroke="BLACK" strokeLineCap="BUTT" strokeType="OUTSIDE" strokeWidth="0.0" width="756.0" />
-            <Label layoutX="242.0" layoutY="20.0" prefHeight="54.0" prefWidth="263.0" text="You're going well!">
+            <Label fx:id="motivationSentence" layoutX="242.0" layoutY="20.0" prefHeight="54.0" prefWidth="263.0" text="You're going well!">
                <font>
                   <Font size="30.0" />
                </font>
@@ -45,9 +45,9 @@
             </Label>
          </children>
       </Group>
-      <Group layoutX="50.0" layoutY="206.0">
+      <Group layoutX="159.0" layoutY="207.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="GREY" height="231.0" stroke="#404040" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="4.0" width="167.0">
+            <Rectangle fx:id="first" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="231.0" stroke="#404040" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="4.0" width="167.0">
                <effect>
                   <DropShadow height="50.0" radius="24.5" width="50.0">
                      <color>
@@ -67,16 +67,16 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="45.0" layoutY="164.0" prefHeight="42.0" prefWidth="85.0" text="10/10">
+            <Label fx:id="sportPoint" layoutX="45.0" layoutY="164.0" prefHeight="42.0" prefWidth="85.0" text="10/10">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
          </children>
       </Group>
-      <Group layoutX="266.0" layoutY="206.0">
+      <Group layoutX="375.0" layoutY="207.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="GREY" height="231.0" layoutX="4.0" stroke="#393939" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="4.0" width="167.0">
+            <Rectangle fx:id="second" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="231.0" layoutX="4.0" stroke="#393939" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="4.0" width="167.0">
                <effect>
                   <DropShadow height="50.0" radius="24.5" width="50.0">
                      <color>
@@ -86,7 +86,7 @@
                </effect>
             </Rectangle>
             <Line endX="74.0" layoutX="78.0" layoutY="51.0" startX="-63.0" stroke="#707070" strokeWidth="4.0" />
-            <Label layoutX="65.0" layoutY="19.0" text="Sport">
+            <Label layoutX="65.0" layoutY="19.0" text="Diet">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -96,16 +96,16 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="45.0" layoutY="164.0" prefHeight="42.0" prefWidth="85.0" text="10/10">
+            <Label fx:id="dietPoit" layoutX="45.0" layoutY="164.0" prefHeight="42.0" prefWidth="85.0" text="10/10">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
          </children>
       </Group>
-      <Group layoutX="492.0" layoutY="206.0">
+      <Group layoutX="601.0" layoutY="207.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="GREY" height="231.0" stroke="#393939" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="4.0" width="167.0">
+            <Rectangle fx:id="third" arcHeight="5.0" arcWidth="5.0" fill="GREY" height="231.0" stroke="#393939" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="4.0" width="167.0">
                <effect>
                   <DropShadow height="50.0" radius="24.5" width="50.0">
                      <color>
@@ -115,7 +115,7 @@
                </effect>
             </Rectangle>
             <Line endX="74.0" fill="#339933" layoutX="78.0" layoutY="51.0" startX="-63.0" stroke="#707070" strokeWidth="4.0" />
-            <Label layoutX="65.0" layoutY="19.0" text="Sport">
+            <Label layoutX="24.0" layoutY="15.0" text="Sleep Schedule">
                <font>
                   <Font name="System Bold" size="17.0" />
                </font>
@@ -125,58 +125,25 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="45.0" layoutY="164.0" prefHeight="42.0" prefWidth="85.0" text="10/10">
+            <Label fx:id="sleepPoint" layoutX="45.0" layoutY="164.0" prefHeight="42.0" prefWidth="85.0" text="10/10">
                <font>
                   <Font name="System Bold" size="30.0" />
                </font>
             </Label>
          </children>
       </Group>
-      <Group layoutX="718.0" layoutY="206.0">
-         <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="GREY" height="231.0" stroke="#393939" strokeLineCap="ROUND" strokeType="OUTSIDE" strokeWidth="4.0" width="167.0">
-               <effect>
-                  <DropShadow height="50.0" radius="24.5" width="50.0">
-                     <color>
-                        <Color red="0.5789473652839661" green="0.530701756477356" />
-                     </color>
-                  </DropShadow>
-               </effect>
-            </Rectangle>
-            <Line endX="74.0" layoutX="78.0" layoutY="51.0" startX="-63.0" stroke="#707070" strokeWidth="4.0" />
-            <Label layoutX="65.0" layoutY="19.0" text="Sport">
-               <font>
-                  <Font name="System Bold" size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="38.0" layoutY="70.0" prefHeight="24.0" prefWidth="99.0" text="Description">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="45.0" layoutY="164.0" prefHeight="42.0" prefWidth="85.0" text="10/10">
-               <font>
-                  <Font name="System Bold" size="30.0" />
-               </font>
-            </Label>
-         </children>
-      </Group>
-      <Button layoutX="104.0" layoutY="463.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="See -&gt;" textFill="#141212">
+      <Group layoutX="827.0" layoutY="207.0" />
+      <Button fx:id="sportButton" layoutX="213.0" layoutY="464.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="See -&gt;" textFill="#141212">
          <effect>
             <DropShadow radius="37.4275" width="130.71" />
          </effect>
       </Button>
-      <Button layoutX="327.0" layoutY="463.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="See -&gt;" textFill="#141212">
+      <Button fx:id="dietButton" layoutX="436.0" layoutY="464.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="See -&gt;" textFill="#141212">
          <effect>
             <DropShadow radius="37.4275" width="130.71" />
          </effect>
       </Button>
-      <Button layoutX="549.0" layoutY="463.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="See -&gt;" textFill="#141212">
-         <effect>
-            <DropShadow radius="37.4275" width="130.71" />
-         </effect>
-      </Button>
-      <Button layoutX="775.0" layoutY="463.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="See -&gt;" textFill="#141212">
+      <Button fx:id="sleepButton" layoutX="658.0" layoutY="464.0" mnemonicParsing="false" style="-fx-background-color: #404040;" text="See -&gt;" textFill="#141212">
          <effect>
             <DropShadow radius="37.4275" width="130.71" />
          </effect>
