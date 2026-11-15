@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="312.0" style="-fx-background-color: #222222;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="19.0" layoutY="59.0" text="SPORT FIGURE" textFill="WHITE">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="22.0" layoutY="135.0" text="Times/Amount of...">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Circle blendMode="SRC_ATOP" fill="#545454" layoutX="156.0" layoutY="368.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Label layoutX="101.0" layoutY="321.0" prefHeight="57.0" prefWidth="111.0" text="10/10">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Button fx:id="exitToMain" layoutX="14.0" layoutY="14.0" minWidth="41.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="41.0" style="-fx-background-color: #505050;" text="&lt;" wrapText="true">
+         <font>
+            <Font size="96.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>

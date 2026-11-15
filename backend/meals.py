@@ -159,6 +159,7 @@ def consumed(whichOne, status="false"):
         meal, slot = meal_2, "lunch"
     elif whichOne == 2:
         meal, slot = meal_3, "dinner"
+<<<<<<< HEAD
     else:
         raise ValueError("slot must be 0, 1 or 2")
     if meal is None:
@@ -167,3 +168,11 @@ def consumed(whichOne, status="false"):
     with open(HISTORY_FILE, "a", encoding="utf-8") as file:
         file.write(f"{date.today()}\t{slot}\t{meal[4]}\t{meal[1]}\t{meal[2]}\t{meal[3]}\t{status}\n")
  
+=======
+
+    with open("meals_history.txt", "a") as file:
+        file.write(f"{date.today()} {slot} {meal[4]} {meal[1]} {meal[2]} {meal[3]} {status}\n")
+
+
+
+>>>>>>> 009521840f591c03f2561151c82337b2f4513d9f
