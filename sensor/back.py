@@ -1,11 +1,25 @@
+import json
 import math
+import os
+import threading
 import time
+import urllib.request
 import cv2
 import mediapipe as mp
 from mediapipe.tasks import python
 from mediapipe.tasks.python import vision
  
-POSE_MODEL_PATH = "pose_landmarker_lite.task"
+# The model lives in the project root; look next to this script first, then one folder up
+_HERE = os.path.dirname(os.path.abspath(__file__))
+POSE_MODEL_PATH = next(
+    (p for p in (os.path.join(_HERE, "pose_landmarker_lite.task"),
+                 os.path.join(_HERE, "..", "pose_landmarker_lite.task"))
+     if os.path.exists(p)),
+    "pose_landmarker_lite.task",
+)
+
+# Backend server (backend/server.py)
+SERVER_URL = "http://127.0.0.1:5000"
  
 # Full body: face, torso, arms, legs
 POSE_CONNECTIONS = [
@@ -49,6 +63,21 @@ def vis(lm):
     return 1.0 if lm.visibility is None else lm.visibility
  
  
+def send_sport(kind, value):
+    """Report an exercise result to the backend without blocking the camera loop.
+    kind: "squat" (value = reps to add) or "plank" (value = seconds held)."""
+    def _send():
+        try:
+            data = json.dumps({"type": kind, "value": value}).encode("utf-8")
+            req = urllib.request.Request(
+                SERVER_URL + "/sport", data=data,
+                headers={"Content-Type": "application/json"}, method="POST")
+            urllib.request.urlopen(req, timeout=2).close()
+        except Exception as e:
+            print(f"(could not reach the server: {e})")
+    threading.Thread(target=_send, daemon=True).start()
+
+
 def format_time(seconds):
     return f"{int(seconds // 60):02d}:{seconds % 60:04.1f}"
  
@@ -134,6 +163,7 @@ while True:
                 stage = "up"
                 reps += 1
                 print(f"Squats: {reps}")
+                send_sport("squat", 1)
  
         # plank
         if (
@@ -161,6 +191,7 @@ while True:
             if plank_lost > PLANK_GRACE_FRAMES and plank_start is not None:
                 held = time.monotonic() - plank_start
                 best_hold = max(best_hold, held)
+                send_sport("plank", held)
                 plank_start = None
  
     hold = 0.0 if plank_start is None else time.monotonic() - plank_start
@@ -193,12 +224,17 @@ while True:
     if key == ord("q"):
         break
     elif key == ord("s") and mode != "squat":
+        if plank_start is not None:
+            send_sport("plank", time.monotonic() - plank_start)
         mode = "squat"
         reps, stage = 0, "up"
     elif key == ord("p") and mode != "plank":
         mode = "plank"
         plank_start, plank_lost = None, 0
  
+if plank_start is not None:
+    send_sport("plank", time.monotonic() - plank_start)
+    time.sleep(0.5)  # let the last request finish
 pose_landmarker.close()
 cap.release()
 cv2.destroyAllWindows()

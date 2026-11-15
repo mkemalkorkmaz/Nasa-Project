@@ -1,5 +1,5 @@
-
 """(http://127.0.0.1:5000)
+POST /api/veri = same as /sport or /consumed, chosen by the JSON you send (used by sports.java)
 GET  /meals =3yemek
 POST /consumed ={"slot": 0, "status": "true"}  (slot 0/1/2, status true/false/semi)
 GET  /sport =today's squats and plank times (filled by sensor/back.py)
@@ -97,16 +97,20 @@ class Handler(BaseHTTPRequestHandler):
             self._send(404, {"error": "not found"})
  
     def do_POST(self):
-        if self.path not in ("/consumed", "/sport"):
+        if self.path not in ("/consumed", "/sport", "/api/veri"):
             self._send(404, {"error": "not found"})
             return
         try:
             length = int(self.headers.get("Content-Length", 0))
             data = json.loads(self.rfile.read(length) or b"{}")
-            if self.path == "/sport":
+            # /api/veri is the address the Java client (sports.java) already uses.
+            # It accepts both shapes: {"type":..,"value":..} (sport) or {"slot":..,"status":..} (meal)
+            if self.path == "/sport" or (self.path == "/api/veri" and "type" in data):
                 add_sport(str(data["type"]), data["value"])
                 self._send(200, sport)
                 return
+            if self.path == "/api/veri" and "slot" not in data:
+                raise ValueError('send {"type": "squat", "value": 1} or {"slot": 0, "status": "true"}')
             slot = int(data["slot"])
             status = str(data.get("status", "true"))
             if slot in eaten:
