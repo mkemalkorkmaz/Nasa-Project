@@ -1,67 +1,53 @@
 package com.general;
-import javafx.application.Application;
-import javafx.stage.Stage;
-import javafx.fxml.*;
-import javafx.scene.shape.Rectangle;
-import javafx.*;
-import javafx.scene.control.*;
-import javafx.event.ActionEvent;
-import javafx.scene.*;
-import java.io.IOException;
-import com.general.subjava.*;
 
+import com.general.subjava.diet;
+import com.general.subjava.sleep;
+import com.general.subjava.sports;
+import java.io.IOException;
+import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 public class main extends Application {
-    @FXML
-    private Label motivationSentence;
+
+    @FXML private Label motivationSentence;
+    @FXML private Rectangle first;
+    @FXML private Label sportPoint;
+    @FXML private Rectangle second;
+    @FXML private Label dietPoint;   // FXML'deki fx:id ile birebir aynı olmalı
+    @FXML private Rectangle third;
+    @FXML private Label sleepPoint;
+    @FXML private Button sportButton;
+    @FXML private Button dietButton;
+    @FXML private Button sleepButton;
 
     @FXML
-    private Rectangle first;
-
-    @FXML
-    private Label sportPoint;
-
-    @FXML
-    private Rectangle second;
-
-    @FXML
-    private Label dietPoit;
-
-    @FXML
-    private Rectangle third;
-
-    @FXML
-    private Label sleepPoint;
-
-    @FXML
-    private Button sportButton;
-
-    @FXML
-    private Button dietButton;
-
-    @FXML
-    private Button sleepButton;
-
-    @FXML 
-    private void onSeeAction(ActionEvent event) throws IOException {
+    void onSeeAction(ActionEvent event) throws IOException {
         Button theButton = (Button) event.getSource();
-        Parent root = null;
+        Parent root;
 
         if (theButton == sportButton) {
-            root = FXMLLoader.load(getClass().getResource("/sport.fxml"));
+            root = sports.createView();
         } else if (theButton == dietButton) {
-            root = FXMLLoader.load(getClass().getResource("/meals.fxml"));
+            root = diet.createView();
         } else if (theButton == sleepButton) {
-           root = FXMLLoader.load(getClass().getResource("/sleepSchedule.fxml"));
+            root = sleep.createView();
+        } else {
+            return;
         }
 
         Stage stage = (Stage) theButton.getScene().getWindow();
         stage.setScene(new Scene(root));
-        stage.show();
-}
+    }
 
-
-    @Override 
+    @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
         Parent root = loader.load();
