@@ -1,6 +1,7 @@
 #Importances
 import random
 from datetime import date
+
 #Instances
 meals = (
    ("Meal 1", 50, 50, 5, "one_two_three"),
