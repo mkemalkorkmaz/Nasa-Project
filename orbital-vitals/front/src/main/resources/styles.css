@@ -1,0 +1,17 @@
+.root { -fx-background-color: #0b1020; -fx-font-family: "Segoe UI", "Inter", sans-serif; }
+.card { -fx-background-color: #141b34; -fx-background-radius: 16; -fx-padding: 16; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 16, 0, 0, 4); }
+.title { -fx-text-fill: white; -fx-font-size: 22px; -fx-font-weight: bold; -fx-letter-spacing: 2; }
+.card-title { -fx-text-fill: #7f8bb3; -fx-font-size: 11px; -fx-font-weight: bold; }
+.big { -fx-text-fill: white; -fx-font-size: 28px; -fx-font-weight: bold; }
+.small { -fx-text-fill: #aab3d6; -fx-font-size: 12px; }
+.progress-bar > .track { -fx-background-color: #222c52; -fx-background-radius: 6; }
+.progress-bar > .bar { -fx-background-color: linear-gradient(to right, #4f7cff, #8a5cff); -fx-background-radius: 6; -fx-padding: 4; }
+.button { -fx-background-color: #4f7cff; -fx-text-fill: white; -fx-background-radius: 10; -fx-padding: 8 14; -fx-cursor: hand; }
+.button:hover { -fx-background-color: #6b90ff; }
+.button.ghost { -fx-background-color: #222c52; }
+.choice-box { -fx-background-color: #222c52; -fx-background-radius: 10; }
+.choice-box .label { -fx-text-fill: white; }
+.chart-plot-background { -fx-background-color: transparent; }
+.chart-series-line { -fx-stroke: #4f7cff; -fx-stroke-width: 2px; }
+.chart-vertical-grid-lines, .chart-horizontal-grid-lines { -fx-stroke: #222c52; }
+.axis { -fx-tick-label-fill: #7f8bb3; }
