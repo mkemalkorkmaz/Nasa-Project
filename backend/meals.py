@@ -139,3 +139,5 @@ def consumed(whichOne, status="false"):
     with open("meals_history.txt", "a") as file:
         file.write(f"{date.today()} {slot} {meal[4]} {meal[1]} {meal[2]} {meal[3]} {status}\n")
 
+
+

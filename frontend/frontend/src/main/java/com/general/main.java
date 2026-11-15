@@ -6,6 +6,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.*;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
+import javafx.scene.*;
+import java.io.IOException;
+import com.general.subjava.*;
+
 
 public class main extends Application {
     @FXML
@@ -42,19 +46,20 @@ public class main extends Application {
     private void onSeeAction(ActionEvent event) {
         Button theButton = (Button) event.getSource();
         if (theButton == sportButton) {
-            
         } else if (theButton == dietButton) {
-
         } else if (theButton == sleepButton) {
-            
         }
-        
     }
+
     @Override 
     public void start(Stage primaryStage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
+        Parent root = loader.load();
         primaryStage.setTitle("Take Care");
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
+
     public static void main(String[] args) {
         Application.launch(args);
     }
