@@ -4,12 +4,15 @@ from datetime import date
 
 #Instances
 meals = (
-   ("Meal 1", 50, 50, 5, "one_two_three"),
-   ("Meal 2", 100, 100, 3, "one_two_three"),
-   ("Meal 3", 25, 50, 2, "one_two_three"),
-   ("Meal 4", 100, 15, 8, "one_two_three"),
-   ("Meal 5", 20, 75, 4, "one_two_three"),
-   ("Meal 6", 10, 50, 8, "one_two_three")
+    ("Meal 1", 28.0, 3.2, 380, "Beef Stew with Tortilla"),
+    ("Meal 2", 18.0, 4.1, 350, "Red Beans and Rice"),
+    ("Meal 3", 25.0, 8.5, 280, "Chicken Salad"),
+    ("Meal 4", 22.0, 5.8, 250, "Shrimp Cocktail with Tortilla"),
+    ("Meal 5", 30.0, 2.7, 300, "Smoked Turkey with Wheat Flatbread"),
+    ("Meal 6", 28.0, 3.4, 390, "Tuna Casserole"),
+    ("Meal 7", 19.0, 4.8, 340, "Split Pea Soup with Tortilla"),
+    ("Meal 8", 10.0, 2.5, 420, "Granola with Nuts and Dried Fruit"),
+    ("Meal 9", 32.0, 7.6, 400, "Beef Fajitas with Tortilla")
 )
 
 meal_1 = None
@@ -78,7 +81,7 @@ def choose_the_most(whereis):
 def select_the_most_nutritional():
     global meal_1, meal_2, meal_3
     read_and_fill()
-    if deficiency_protein >= 100: #to be changed
+    if deficiency_protein >= 20: 
         biggest, second = choose_the_most(1)
         rd = random.randint(0, 1)
         if rd == 0:
@@ -86,7 +89,7 @@ def select_the_most_nutritional():
         else:
             meal_1 = second
         return 0
-    elif deficiency_vitamins >= 100:
+    elif deficiency_vitamins >= 25:
         biggest, second = choose_the_most(2)
         rd = random.randint(0, 1)
         if rd == 0:
@@ -94,7 +97,7 @@ def select_the_most_nutritional():
         else:
             meal_2 = second
         return 0
-    elif deficiency_energy >= 100:
+    elif deficiency_energy >= 300:
         biggest, second = choose_the_most(3)
         rd = random.randint(0, 1)
         if rd == 0:
