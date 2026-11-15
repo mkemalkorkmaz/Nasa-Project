@@ -1,5 +1,2 @@
 .vscode
-backend/*
-!backend/meals.py
-backend/server
-sensor
+frontend
