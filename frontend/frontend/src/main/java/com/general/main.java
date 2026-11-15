@@ -43,13 +43,23 @@ public class main extends Application {
     private Button sleepButton;
 
     @FXML 
-    private void onSeeAction(ActionEvent event) {
+    private void onSeeAction(ActionEvent event) throws IOException {
         Button theButton = (Button) event.getSource();
+        Parent root = null;
+
         if (theButton == sportButton) {
+            root = FXMLLoader.load(getClass().getResource("/sport.fxml"));
         } else if (theButton == dietButton) {
+            root = FXMLLoader.load(getClass().getResource("/meals.fxml"));
         } else if (theButton == sleepButton) {
+           root = FXMLLoader.load(getClass().getResource("/sleepSchedule.fxml"));
         }
-    }
+
+        Stage stage = (Stage) theButton.getScene().getWindow();
+        stage.setScene(new Scene(root));
+        stage.show();
+}
+
 
     @Override 
     public void start(Stage primaryStage) throws Exception {
